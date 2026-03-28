@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPF-Bench</title>
+  <meta
+    name="description"
+    content="MPF-Bench: A benchmark family for fine-grained visual reasoning in vision-language models."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">MPF-Bench</a>
+      <nav class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#overview">Overview</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">Project Page</p>
+        <h1>MPF-Bench</h1>
+        <p class="subtitle">
+          A benchmark family for fine-grained visual reasoning in vision-language models.
+        </p>
+
+        <p class="authors">
+          Xiuyuan Zhu, Ke Lu, Hao Wu, Zijin Du, Yuan Lei, Jian Xue
+        </p>
+        <p class="affiliations">
+          University of Chinese Academy of Sciences
+        </p>
+
+        <div class="button-row">
+          <a class="btn btn-primary" href="#" target="_blank" rel="noopener">Paper</a>
+          <a class="btn" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Code</a>
+          <a class="btn" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Dataset</a>
+        </div>
+
+        <div class="hero-card">
+          <img
+            src="assets/teaser.png"
+            alt="MPF-Bench teaser figure"
+            class="hero-image"
+          />
+          <p class="caption">
+            MPF-Bench converts natural images into localized completion tasks with controllable difficulty.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="abstract" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Abstract</h2>
+        </div>
+        <div class="card">
+          <p>
+            Vision-language models perform strongly on many multimodal tasks, but fine-grained visual reasoning remains difficult to evaluate in a controlled and reproducible way. MPF-Bench is a programmatically generated benchmark family for fine-grained visual reasoning. Given a natural image, MPF-Bench partitions it into patches, masks one target patch, and asks the model to identify the candidate patch that correctly fills the missing region.
+          </p>
+          <p>
+            Because each instance is defined directly by construction, MPF-Bench provides deterministic labels, exact scoring, zero-cost annotation, and controllable difficulty through grid size, candidate count, and mask shape. The same verifiable structure also makes MPF reusable as a self-supervised training signal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Benchmark Overview</h2>
+          <p>
+            MPF-Bench is designed as a benchmark family rather than a single fixed test set.
+          </p>
+        </div>
+
+        <div class="grid two-col">
+          <div class="card">
+            <h3>What MPF-Bench Measures</h3>
+            <ul class="clean-list">
+              <li>Fine-grained local reasoning</li>
+              <li>Spatial continuity and appearance compatibility</li>
+              <li>Context-aware part-whole inference</li>
+              <li>Performance under controlled difficulty shifts</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Key Properties</h3>
+            <ul class="clean-list">
+              <li>Programmatic annotation</li>
+              <li>Deterministic scoring</li>
+              <li>Controllable difficulty</li>
+              <li>Scalable generation from natural images</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img src="assets/pipeline.png" alt="MPF-Bench pipeline" />
+          <p class="caption">
+            Automatic instance generation, evaluation, and secondary training utility from the same task structure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Main Results</h2>
+          <p>
+            Zero-shot accuracy decreases as local ambiguity increases, especially when the candidate pool grows.
+          </p>
+        </div>
+
+        <div class="grid two-col">
+          <div class="card">
+            <h3>Key Findings</h3>
+            <ul class="clean-list">
+              <li>Strong VLMs still struggle on hard MPF settings.</li>
+              <li>Candidate count affects difficulty more strongly than finer grids alone.</li>
+              <li>MPF training produces large in-domain gains.</li>
+              <li>Transfer to external benchmarks is moderate.</li>
+            </ul>
+          </div>
+
+          <div class="card stats-card">
+            <div class="stat">
+              <span class="stat-value">6.25%</span>
+              <span class="stat-label">Random baseline on 16-way setting</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">90%+</span>
+              <span class="stat-label">In-domain accuracy after MPF training</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">1k</span>
+              <span class="stat-label">Test instances per released configuration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img src="assets/results.png" alt="MPF-Bench results figure" />
+          <p class="caption">
+            Representative zero-shot results across configurations of increasing difficulty.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="links" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Resources</h2>
+        </div>
+
+        <div class="grid three-col">
+          <a class="resource-card" href="#" target="_blank" rel="noopener">
+            <h3>Paper</h3>
+            <p>Read the full paper and supplementary material.</p>
+          </a>
+
+          <a class="resource-card" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">
+            <h3>Code</h3>
+            <p>Project code, webpage source, and related materials.</p>
+          </a>
+
+          <a class="resource-card" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">
+            <h3>Dataset</h3>
+            <p>Benchmark release on Hugging Face Datasets.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Citation</h2>
+        </div>
+
+        <div class="card">
+          <button id="copyBibtexBtn" class="copy-btn" type="button">Copy BibTeX</button>
+          <pre id="bibtexBlock"><code>@article{zhu2026mpfbench,
+  title   = {MPF-Bench: A Benchmark Family for Fine-Grained Visual Reasoning in Vision-Language Models},
+  author  = {Xiuyuan Zhu and Ke Lu and Hao Wu and Zijin Du and Yuan Lei and Jian Xue},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> MPF-Bench</p>
+      <p>
+        Built with GitHub Pages ·
+        <a href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Dataset</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
