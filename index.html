@@ -236,7 +236,7 @@
       <div class="container">
         <div class="section-head">
           <p class="section-kicker">Benchmark Family</p>
-          <h2>Controlled Difficulty Through Explicit Generation Axes</h2>
+          <h2>From a Default Pipeline to a Configurable Benchmark Family</h2>
         </div>
 
         <div class="figure-card">
@@ -258,23 +258,27 @@
             />
           </figure>
           <p class="caption">
-            Overview of the MPF-Bench pipeline. MPF automatically generates reasoning instances, derives ground-truth labels, and evaluates model responses. The same verifiable structure can also be reused for self-supervised training with GRPO.
+            Overview of the MPF-Bench pipeline. Fig. 2 illustrates the default `8×6`, `4-way` MPF workflow: MPF automatically generates reasoning instances, derives ground-truth labels, and evaluates model responses. The same verifiable structure can also be reused for self-supervised training with GRPO.
           </p>
+        </div>
+
+        <div class="section-head top-gap">
+          <p>Beyond the default pipeline shown above, the released benchmark family varies along three configurable dimensions.</p>
         </div>
 
         <div class="paper-grid three-col">
           <article class="paper-card axis-card">
-            <span class="axis-tag">Axis 1</span>
+            <span class="axis-tag">Dimension 1</span>
             <h3>Grid Size</h3>
             <p>`4×4`, `8×6`, `8×8`, and `12×12` regulate local context and patch granularity.</p>
           </article>
           <article class="paper-card axis-card">
-            <span class="axis-tag">Axis 2</span>
+            <span class="axis-tag">Dimension 2</span>
             <h3>Candidate Count</h3>
             <p>`4-way`, `8-way`, and `16-way` settings scale ambiguity and prove to be the strongest difficulty factor.</p>
           </article>
           <article class="paper-card axis-card">
-            <span class="axis-tag">Axis 3</span>
+            <span class="axis-tag">Dimension 3</span>
             <h3>Mask Shape</h3>
             <p>Rectangular and elliptical masks change boundary cues and local continuity conditions.</p>
           </article>

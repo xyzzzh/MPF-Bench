@@ -232,7 +232,7 @@
       <div class="container">
         <div class="section-head">
           <p class="section-kicker">基准家族</p>
-          <h2>通过显式生成轴实现可控难度</h2>
+          <h2>从默认流程示意到可配置的基准家族</h2>
         </div>
 
         <div class="figure-card">
@@ -254,23 +254,27 @@
             />
           </figure>
           <p class="caption">
-            MPF-Bench 流水线概览。MPF 自动生成推理样本、构建真值标签并完成模型评测；同样的可验证结构也可复用于自监督训练。
+            MPF-Bench 流水线概览。图 2 展示的是默认 `8×6`、`4-way` 设置下的 MPF 流程：MPF 自动生成推理样本、构建真值标签并完成模型评测；同样的可验证结构也可复用于自监督训练。
           </p>
+        </div>
+
+        <div class="section-head top-gap">
+          <p>在这一定义默认流程之外，发布版 MPF-Bench 还沿着下面三个可控配置维度进行变化。</p>
         </div>
 
         <div class="paper-grid three-col">
           <article class="paper-card axis-card">
-            <span class="axis-tag">轴 1</span>
+            <span class="axis-tag">维度 1</span>
             <h3>网格尺寸</h3>
             <p>`4×4`、`8×6`、`8×8` 与 `12×12` 控制局部上下文范围和 patch 粒度。</p>
           </article>
           <article class="paper-card axis-card">
-            <span class="axis-tag">轴 2</span>
+            <span class="axis-tag">维度 2</span>
             <h3>候选数量</h3>
             <p>`4-way`、`8-way` 与 `16-way` 直接提升歧义度，也是最强的难度因素。</p>
           </article>
           <article class="paper-card axis-card">
-            <span class="axis-tag">轴 3</span>
+            <span class="axis-tag">维度 3</span>
             <h3>遮挡形状</h3>
             <p>矩形与椭圆形遮挡会改变边界信息与局部连续性线索。</p>
           </article>
