@@ -27,6 +27,7 @@
           <a href="#benchmark">基准</a>
           <a href="#results">结果</a>
           <a href="#training">训练</a>
+          <a href="#discussion">讨论</a>
         </nav>
         <div class="lang-switch" aria-label="Language switch">
           <a href="./index.html">EN</a>
@@ -86,8 +87,8 @@
             </div>
 
             <div class="button-row">
-              <a class="btn btn-primary" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">代码</a>
-              <a class="btn" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">数据集</a>
+              <a class="btn  btn-primary" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">数据集</a>
+              <a class="btn" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">代码</a>
             </div>
 
             <div class="hero-facts">
@@ -124,8 +125,11 @@
                 </div>
               </div>
             </div>
+            <div class="task-note">
+              被遮挡目标不是从随机位置选取，而是从信息量更高的 patch 中挑选。
+            </div>
             <p class="caption">
-              给定一张自然图像，将其划分为多个 patch，遮住其中目标 patch，模型需要从候选 patch 中选出最适合填回缺失区域的编号。
+              给定一张自然图像，将其划分为多个 patch，且被遮住的目标 patch 不是均匀随机选取，而是从信息量更高的区域中挑选。模型需要从候选 patch 中选出最适合填回缺失区域的编号。
             </p>
           </aside>
         </div>
@@ -223,6 +227,10 @@
                 <span class="mini-label">从 `&lt;mpf&gt;` 标签中精确解析数字</span>
               </div>
             </div>
+            <div class="prompt-note">
+              这些统计结果说明，评测已经在较大程度上排除了输出格式错误、指令跟随失败、OCR 识别偏差以及其他模型响应层面的干扰因素。因此，
+              MPF-Bench 上的准确率下降能够更真实地反映模型在细粒度视觉感知与局部推理上的不足，而不是答案协议本身没有被正确执行。
+            </div>
           </article>
         </div>
       </div>
@@ -254,7 +262,7 @@
             />
           </figure>
           <p class="caption">
-            MPF-Bench 流水线概览。图 2 展示的是默认 `8×6`、`4-way` 设置下的 MPF 流程：MPF 自动生成推理样本、构建真值标签并完成模型评测；同样的可验证结构也可复用于自监督训练。
+            MPF-Bench 流水线概览。图 2 展示的是默认 `8×6`、`4-way` 设置下的 MPF 流程：MPF 自动生成推理样本、构建真值标签并完成模型评测。在实际构建流程中，会先过滤低信息量 patch，再从信息量排名靠前的 patch 中采样被遮挡目标，而不是对任意位置做均匀随机遮挡；同样的可验证结构也可复用于自监督训练。
           </p>
         </div>
 
@@ -309,6 +317,7 @@
             <ul class="clean-list">
               <li>当前发布共包含 6 个基准配置，总计 6,000 个 MPF 测试实例。</li>
               <li>每个配置都包含 1,000 个 MPF 测试实例。</li>
+              <li>被遮挡目标来自信息量更高的 patch：构建脚本使用结合颜色方差、拉普拉斯方差与熵的 richness score 排序，并默认从排名靠前的候选池中采样，而不是随机遮挡任意位置。</li>
               <li>源图像与测试图像严格划分，避免数据泄漏。</li>
               <li>发布内容仅包含 patch 索引、坐标等派生元数据。</li>
               <li>难度记录包含熵、干扰项相似度和边界歧义度等信息。</li>
@@ -391,7 +400,7 @@
                   <td>46.0</td>
                   <td>47.5</td>
                   <td>67.5</td>
-                  <td>81.0</td>
+                  <td><strong>81.0</strong></td>
                   <td>71.5</td>
                 </tr>
                 <tr>
@@ -401,7 +410,7 @@
                   <td>57.5</td>
                   <td>47.5</td>
                   <td>72.5</td>
-                  <td>81.5</td>
+                  <td><strong>81.5</strong></td>
                   <td>76.5</td>
                 </tr>
                 <tr>
@@ -411,7 +420,7 @@
                   <td>56.0</td>
                   <td>55.5</td>
                   <td>78.0</td>
-                  <td>82.9</td>
+                  <td><strong>82.9</strong></td>
                   <td>73.5</td>
                 </tr>
                 <tr>
@@ -421,7 +430,7 @@
                   <td>37.5</td>
                   <td>30.0</td>
                   <td>50.5</td>
-                  <td>69.0</td>
+                  <td><strong>69.0</strong></td>
                   <td>53.1</td>
                 </tr>
                 <tr>
@@ -431,7 +440,7 @@
                   <td>39.0</td>
                   <td>31.5</td>
                   <td>57.0</td>
-                  <td>65.5</td>
+                  <td><strong>65.5</strong></td>
                   <td>61.1</td>
                 </tr>
                 <tr>
@@ -442,7 +451,7 @@
                   <td>14.5</td>
                   <td>34.0</td>
                   <td>28.6</td>
-                  <td>37.6</td>
+                  <td><strong>37.6</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -524,17 +533,17 @@
                   <td>Qwen2.5-VL-7B</td>
                   <td>83.9</td>
                   <td>73.4</td>
-                  <td>86.9</td>
+                  <td><strong>86.9</strong></td>
                   <td>64.0</td>
                   <td>27.3</td>
                 </tr>
                 <tr class="highlight-row">
                   <td>Qwen2.5-VL-7B + MPF</td>
-                  <td>84.4</td>
-                  <td>78.3</td>
+                  <td><strong>84.4</strong></td>
+                  <td><strong>78.3</strong></td>
                   <td>86.4</td>
-                  <td>68.1</td>
-                  <td>93.1</td>
+                  <td><strong>68.1</strong></td>
+                  <td><strong>93.1</strong></td>
                 </tr>
                 <tr>
                   <td>InternVL3-1B</td>
@@ -558,6 +567,81 @@
           <p class="caption">
             MPF 训练可以显著提升域内表现，但向外部多模态基准的迁移仍然相对有限。
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="discussion" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">讨论 / FAQ</p>
+          <h2>关于定位、有效性与用途的常见问题</h2>
+        </div>
+        <p class="faq-intro">
+          这一部分用于澄清 MPF-Bench 的目标边界，并回答关于基准设计、构念有效性和训练用途的常见问题。
+          我们希望尽量明确地说明：MPF-Bench 在测什么、不声称测什么，以及为什么我们将训练定位为次要用途而非主要贡献。
+        </p>
+        <div class="paper-grid two-col faq-grid">
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q1</span>
+            <h3>MPF-Bench 的主要定位是 benchmark，还是一种训练方法？</h3>
+            <p>
+              MPF-Bench 的主要定位是一个 benchmark family。它的核心贡献是一个可程序化生成、可控且可精确验证的细粒度视觉推理评测框架。
+            </p>
+            <p>
+              我们额外研究了 MPF 作为自监督训练信号的用途，是因为同一任务结构天然提供了确定性奖励；但这部分只是附带研究，而不是论文的主张中心。
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q2</span>
+            <h3>这个任务主要测的是 OCR、格式输出，或 instruction following 吗？</h3>
+            <p>
+              我们在协议设计上尽量减少与目标能力无关的干扰因素。所有模型接收的是同一张 composite image，具有相同布局和候选顺序，而不是依赖各家模型不同的 multi-image 接口。
+            </p>
+            <p>
+              同时，几乎所有设置下格式正确率都超过 99.5%，候选集外预测率低于 1%。这说明主要难点来自视觉歧义下的正确 patch 选择，而不是格式失败或无法理解指令。
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q3</span>
+            <h3>为什么会用 <code>8×6</code>、4-way 或椭圆形遮挡这些设定？</h3>
+            <p>
+              MPF-Bench 不是单一固定切片，而是一个 benchmark family。当前发布的基准沿三个显式难度维度变化：网格尺寸、候选数量和遮挡形状。
+            </p>
+            <p>
+              其中 <code>8×6</code>、4-way、矩形遮挡，只是训练实验中为了效率和可比性选用的工作配置，并不是整个 benchmark 的定义。
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q4</span>
+            <h3>如果 MPF 训练后准确率能超过 90%，这个 benchmark 会不会很快饱和？</h3>
+            <p>
+              我们认为“既困难又可学习”本身是一个优点，而不是矛盾。零样本评测中，在最难的 <code>12×12</code>、16-way 设置上，若干强模型仍接近随机水平，说明更难切片远未饱和。
+            </p>
+            <p>
+              定向训练后在某个工作切片上获得高精度，说明任务是可学的；但这并不意味着整个 benchmark family 被做穿，因为仍然可以通过增加候选歧义和其他难度因素继续构造更难的切片。
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q5</span>
+            <h3>MPF 测到的真的是 reasoning，而不是低层 seam matching 吗？</h3>
+            <p>
+              MPF 更准确的目标是测量“受上下文约束的局部兼容性判断”，而不是脱离视觉上下文的“纯语义推理”。模型需要判断哪个候选 patch 在纹理、几何、颜色、材质和语义合理性上最符合周围区域。
+            </p>
+            <p>
+              为了减少过于简单的情况，流程会过滤低信息 patch，从空间上分离的区域采样 distractor，同时记录 distractor similarity 和 boundary ambiguity 等因素。我们并不声称完全消除了所有低层线索，但认为 MPF 提供了一个在受控歧义下、可扩展且可验证的细粒度局部推理压力测试。
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q6</span>
+            <h3>为什么在外部 benchmark 上的迁移提升只有中等幅度？</h3>
+            <p>
+              我们有意将这部分表述为“中等提升”，而不是“普适提升”。这与我们的定位一致：MPF-Bench 首先是针对一种特定细粒度能力的评测工具，其次才是一个自监督训练信号。
+            </p>
+            <p>
+              强烈的域内提升说明任务是可学习且具有行为意义的；而外部 benchmark 上较温和的提升，则说明 MPF 捕捉的是多模态能力中的一个真实但相对狭窄的组成部分，而不是提升所有 benchmark 的通用配方。
+            </p>
+          </article>
         </div>
       </div>
     </section>

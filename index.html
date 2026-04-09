@@ -27,6 +27,7 @@
           <a href="#benchmark">Benchmark</a>
           <a href="#results">Results</a>
           <a href="#training">Training</a>
+          <a href="#discussion">Discussion</a>
         </nav>
         <div class="lang-switch" aria-label="Language switch">
           <a class="active" href="./index.html">EN</a>
@@ -87,8 +88,8 @@
             </div>
 
             <div class="button-row">
-              <a class="btn btn-primary" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Code</a>
-              <a class="btn" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Dataset</a>
+              <a class="btn  btn-primary" href="https://huggingface.co/datasets/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Dataset</a>
+              <a class="btn" href="https://github.com/xyzzzh/MPF-Bench" target="_blank" rel="noopener">Code</a>
             </div>
 
             <div class="hero-facts">
@@ -125,9 +126,13 @@
                 </div>
               </div>
             </div>
+            <div class="task-note">
+              The masked target is selected from information-rich patches rather than from uniformly random locations.
+            </div>
             <p class="caption">
-              A natural image is partitioned into patches, one target patch is masked, and the model must return
-              the candidate patch index that best fills the missing region.
+              A natural image is partitioned into patches, and the masked target is selected from information-rich
+              regions rather than uniformly at random. The model must return the candidate patch index that best
+              fills the missing region.
             </p>
           </aside>
         </div>
@@ -226,6 +231,12 @@
                 <span class="mini-value">exact</span>
                 <span class="mini-label">numeric parsing from `&lt;mpf&gt;` tag</span>
               </div>
+            </div>
+            <div class="prompt-note">
+              These statistics indicate that the evaluation largely factors out failures caused by output-format errors,
+              instruction-following issues, OCR mistakes, or other model-specific response artifacts. As a result,
+              performance drops on MPF-Bench more faithfully reflect weaknesses in fine-grained visual perception and
+              local reasoning, rather than failures to follow the answer protocol itself.
             </div>
           </article>
         </div>
@@ -395,7 +406,7 @@
                   <td>46.0</td>
                   <td>47.5</td>
                   <td>67.5</td>
-                  <td>81.0</td>
+                  <td><strong>81.0</strong></td>
                   <td>71.5</td>
                 </tr>
                 <tr>
@@ -405,7 +416,7 @@
                   <td>57.5</td>
                   <td>47.5</td>
                   <td>72.5</td>
-                  <td>81.5</td>
+                  <td><strong>81.5</strong></td>
                   <td>76.5</td>
                 </tr>
                 <tr>
@@ -415,7 +426,7 @@
                   <td>56.0</td>
                   <td>55.5</td>
                   <td>78.0</td>
-                  <td>82.9</td>
+                  <td><strong>82.9</strong></td>
                   <td>73.5</td>
                 </tr>
                 <tr>
@@ -425,7 +436,7 @@
                   <td>37.5</td>
                   <td>30.0</td>
                   <td>50.5</td>
-                  <td>69.0</td>
+                  <td><strong>69.0</strong></td>
                   <td>53.1</td>
                 </tr>
                 <tr>
@@ -435,7 +446,7 @@
                   <td>39.0</td>
                   <td>31.5</td>
                   <td>57.0</td>
-                  <td>65.5</td>
+                  <td><strong>65.5</strong></td>
                   <td>61.1</td>
                 </tr>
                 <tr>
@@ -446,7 +457,7 @@
                   <td>14.5</td>
                   <td>34.0</td>
                   <td>28.6</td>
-                  <td>37.6</td>
+                  <td><strong>37.6</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -528,17 +539,17 @@
                   <td>Qwen2.5-VL-7B</td>
                   <td>83.9</td>
                   <td>73.4</td>
-                  <td>86.9</td>
+                  <td><strong>86.9</strong></td>
                   <td>64.0</td>
                   <td>27.3</td>
                 </tr>
                 <tr class="highlight-row">
                   <td>Qwen2.5-VL-7B + MPF</td>
-                  <td>84.4</td>
-                  <td>78.3</td>
+                  <td><strong>84.4</strong></td>
+                  <td><strong>78.3</strong></td>
                   <td>86.4</td>
-                  <td>68.1</td>
-                  <td>93.1</td>
+                  <td><strong>68.1</strong></td>
+                  <td><strong>93.1</strong></td>
                 </tr>
                 <tr>
                   <td>InternVL3-1B</td>
@@ -562,6 +573,108 @@
           <p class="caption">
             MPF training yields large in-domain gains, while transfer to external multimodal benchmarks remains moderate.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="discussion" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Discussion / FAQ</p>
+          <h2>Common Questions About Scope, Validity, and Utility</h2>
+        </div>
+        <p class="faq-intro">
+          This section clarifies the intended scope of MPF-Bench and addresses common questions about
+          benchmark design, construct validity, and training utility. Our goal is to be precise about
+          what MPF-Bench measures, what it does not claim to measure, and why training is positioned as a
+          secondary use rather than the main contribution.
+        </p>
+        <div class="paper-grid two-col faq-grid">
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q1</span>
+            <h3>Is MPF-Bench primarily a benchmark or a training method?</h3>
+            <p>
+              MPF-Bench is primarily a benchmark family. Its main contribution is a programmatically
+              generated, controllable, and exactly verifiable evaluation framework for fine-grained visual
+              reasoning.
+            </p>
+            <p>
+              We additionally study MPF as a secondary self-supervised training signal because the same task
+              structure naturally provides deterministic rewards, but this training use is auxiliary rather
+              than the paper's primary claim.
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q2</span>
+            <h3>Does the task mainly measure OCR, formatting, or instruction following?</h3>
+            <p>
+              We designed the protocol to minimize non-target confounds. All models receive the same
+              composite image with the same layout and candidate order, rather than model-specific
+              multi-image inputs.
+            </p>
+            <p>
+              Output-format accuracy exceeds 99.5%, and the out-of-candidate prediction rate stays below 1%
+              across nearly all settings. This suggests that the main difficulty comes from selecting the
+              correct patch under visual ambiguity, not from formatting failures.
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q3</span>
+            <h3>Why use settings such as <code>8×6</code>, 4-way, or elliptical masks?</h3>
+            <p>
+              MPF-Bench is a benchmark family rather than a single fixed slice. The released benchmark varies
+              along three explicit difficulty axes: grid size, candidate count, and mask shape.
+            </p>
+            <p>
+              The <code>8×6</code>, 4-way, rectangular setting is used only as a practical working
+              configuration for the training study. It is not the definition of the benchmark itself.
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q4</span>
+            <h3>If MPF training pushes accuracy above 90%, does the benchmark saturate too quickly?</h3>
+            <p>
+              We view "difficult but learnable" as a feature rather than a contradiction. In zero-shot
+              evaluation, several strong models remain close to random chance on the hardest
+              <code>12×12</code>, 16-way setting, showing that harder slices are far from saturated.
+            </p>
+            <p>
+              High in-domain accuracy after targeted training demonstrates learnability on one working slice,
+              but it does not collapse the broader benchmark family, because new slices can still be created
+              by increasing candidate ambiguity and other difficulty factors.
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q5</span>
+            <h3>Does MPF really test reasoning, rather than low-level seam matching?</h3>
+            <p>
+              MPF is intended to measure context-conditioned local compatibility, not "pure semantics" in
+              isolation. The task requires the model to identify which candidate is most consistent with the
+              surrounding visual context, including texture, geometry, color, material, and semantic
+              plausibility.
+            </p>
+            <p>
+              To reduce trivial cases, the pipeline filters low-information patches, samples distractors from
+              spatially distinct regions while preserving coarse plausibility, and records factors such as
+              distractor similarity and boundary ambiguity. We do not claim that all low-level cues are
+              eliminated, but we do claim that MPF provides a scalable and verifiable stress test for
+              fine-grained local reasoning under controlled ambiguity.
+            </p>
+          </article>
+          <article class="paper-card faq-item">
+            <span class="faq-index">Q6</span>
+            <h3>Why are transfer gains on external benchmarks only moderate?</h3>
+            <p>
+              The transfer gains are intentionally presented as moderate, not universal. This is consistent
+              with our positioning: MPF-Bench is primarily an evaluation tool for a specific fine-grained
+              capability, and only secondarily a self-supervised training signal.
+            </p>
+            <p>
+              Strong in-domain gains show that the task is learnable and behaviorally meaningful, while
+              moderate external gains suggest that MPF captures a real but relatively narrow component of
+              multimodal competence rather than a universal recipe for improving all benchmarks.
+            </p>
+          </article>
         </div>
       </div>
     </section>
