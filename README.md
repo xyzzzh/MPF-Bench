@@ -15,6 +15,19 @@ Given a natural image, MPF-Bench partitions it into patches, masks one target pa
 - Hugging Face dataset: https://huggingface.co/datasets/xyzzzh/MPF-Bench
 - Dataset card: `docs/Datasets_card.md`
 
+## Citation
+
+If you find MPF-Bench useful, please cite it as:
+
+```bibtex
+@misc{zhu2026mpfbench,
+  title  = {{MPF-Bench}: A Programmatically Verifiable Benchmark Family for Fine-Grained Visual Reasoning in VLMs},
+  author = {Xiuyuan Zhu and Ke Lu and Hao Wu and Zijin Du and Yuan Lei and Jian Xue},
+  year   = {2026},
+  url    = {https://xyzzzh.github.io/MPF-Bench/}
+}
+```
+
 ## Current Release
 
 The current benchmark release contains **6 representative configurations** and **6,000 MPF test instances** in total:
